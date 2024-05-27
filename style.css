@@ -44,3 +44,7 @@ body{
 .hidden-area{
     display: none;
 }
+
+.submit-area{
+    margin-top: 10px;
+}
