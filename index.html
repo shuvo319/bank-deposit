@@ -24,19 +24,19 @@
          <div class="col-md-4">
             <div class="box dep-clr">
              <h2>Deposit</h2>
-             <p>$<span id="deposit">100</span></p>
+             <p>$<span id="add-deposit">100</span></p>
             </div>
          </div>
         <div class="col-md-4">
             <div class="box wth-clr">
                 <h2>Withdraw</h2>
-                <p>$<span id="withdraw">100</span></p>
+                <p>$<span id="add-withdraw">100</span></p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="box bal-clr">
                 <h2>Balance</h2>
-                <p>$<span id="balance">100</span></p>
+                <p>$<span id="add-balance">700</span></p>
             </div>
         </div>
     </div>
@@ -45,15 +45,15 @@
         <div class="col-md-6">
             <div class="submit-area">
                 <h4>Deposit</h4>
-                <input type="text" class="form-control" placeholder="$ Enter your Deposit amount">
-                <button class="mt-3 btn btn-success">Submit</button>
+                <input id="deposit" type="text" class="form-control" placeholder="$ Enter your Deposit amount">
+                <button id="deposit-btn" class="mt-3 btn btn-success">Submit</button>
             </div>
         </div>
         <div class="col-md-6">
             <div class="submit-area">
                 <h4>Withdraw</h4>
-                <input type="text" class="form-control" placeholder="$ Enter your Withdraw amount">
-                <button class="mt-3 btn btn-success">Submit</button>
+                <input id="withdraw" type="text" class="form-control" placeholder="$ Enter your Withdraw amount">
+                <button id="withdraw-btn" class="mt-3 btn btn-success">Submit</button>
             </div>
         </div>
     </div>
@@ -74,7 +74,55 @@
 
       })
 
-      
+    // deposit & balance amount event
+     const btnDeposit = document.getElementById("deposit-btn");
+     btnDeposit.addEventListener("click",function(){
+
+        const depositNumber = getInputNumber("deposit");
+
+        updateSpanText("add-deposit", depositNumber);
+        updateSpanText("add-balance", depositNumber);
+
+        // const totalDeposit = document.getElementById("add-deposit").innerText;
+        // const depositToAmount = parseFloat(totalDeposit);
+        // const totalAddedAmountDep = amountInNumberDep + depositToAmount;
+        // document.getElementById("add-deposit").innerText = totalAddedAmountDep;
+
+        document.getElementById("deposit").value= "";
+
+        // const addBalance = document.getElementById("add-balance").innerText;
+        // const amountInNumberBal = parseFloat(addBalance);
+        // const totalAddedAmountBalance = amountInNumberBal + amountInNumberDep;
+        // document.getElementById("add-balance").innerText = totalAddedAmountBalance;
+     })
+
+    //Withdraw number add and remove from balance event
+
+    const withdrawBtn = document.getElementById("withdraw-btn");
+    withdrawBtn.addEventListener("click", function(){
+
+        const withdrawNumber = getInputNumber("withdraw");
+        updateSpanText("add-withdraw", withdrawNumber);
+        updateSpanText("add-balance", -1 * withdrawNumber);
+
+        document.getElementById("withdraw").value = "";
+    })
+
+
+    //Get number text as a value event
+         function getInputNumber(id){
+            const addNumber = document.getElementById(id).value;
+            const addNumberValue = parseFloat(addNumber);
+            return addNumberValue;
+        }
+
+    //Update number for balance and deposit event
+        function updateSpanText(id, addedNumber){
+            const spanText = document.getElementById(id).innerText;
+            const spanTextValue = parseFloat(spanText);
+            const totalAmountValue = addedNumber + spanTextValue;
+            document.getElementById(id).innerText = totalAmountValue;
+        }
     </script>
 </body>
 </html>
